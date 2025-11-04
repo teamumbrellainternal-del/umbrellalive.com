@@ -1162,6 +1162,249 @@
         text-align: center;
       }
     }
+
+    /* ============================================
+       WAITLIST MODAL
+       ============================================ */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 300ms var(--ease-out);
+    }
+
+    .modal.is-open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+    }
+
+    .modal__content {
+      position: relative;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      max-width: 540px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform 300ms var(--ease-out);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal.is-open .modal__content {
+      transform: scale(1);
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 200ms ease;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal__close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      transform: rotate(90deg);
+    }
+
+    .modal__header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .modal__title {
+      font-size: var(--text-32);
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .modal__subtitle {
+      font-size: var(--text-16);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .modal__form-group {
+      margin-bottom: 24px;
+    }
+
+    .modal__label {
+      display: block;
+      font-size: var(--text-14);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .modal__input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: var(--text-16);
+      font-family: inherit;
+      background: var(--bg-primary);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      transition: all 200ms ease;
+    }
+
+    .modal__input:focus {
+      outline: none;
+      border-color: var(--purple-primary);
+      box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.1);
+    }
+
+    .modal__input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .modal__input.has-error {
+      border-color: #EF4444;
+    }
+
+    .modal__error {
+      display: block;
+      font-size: var(--text-14);
+      color: #EF4444;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+
+    .modal__submit {
+      width: 100%;
+      padding: 16px 24px;
+      font-size: var(--text-16);
+      position: relative;
+    }
+
+    .modal__submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .modal__submit-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .modal__spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      border-top-color: #000000;
+      border-radius: 50%;
+      animation: spin 600ms linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .modal__privacy {
+      font-size: var(--text-14);
+      color: var(--text-tertiary);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .modal__success,
+    .modal__error-message {
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .modal__success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10B981, #34D399);
+      color: white;
+      font-size: 40px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .modal__error-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #EF4444, #F87171);
+      color: white;
+      font-size: 40px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .modal__success-title,
+    .modal__error-title {
+      font-size: var(--text-24);
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .modal__success-text,
+    .modal__error-text {
+      font-size: var(--text-16);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 767px) {
+      .modal__content {
+        padding: 32px 24px;
+        width: 95%;
+      }
+
+      .modal__title {
+        font-size: var(--text-24);
+      }
+    }
   </style>
 </head>
 <body>
@@ -1185,7 +1428,7 @@
 
         <div class="nav__cta">
           <a href="#" class="btn btn-text">Log in</a>
-          <a href="#" class="btn btn-primary">Sign up free</a>
+          <a href="#" class="btn btn-primary" data-waitlist>Sign up free</a>
         </div>
 
         <button class="nav__hamburger" aria-label="Menu">
@@ -1219,7 +1462,7 @@
       </p>
 
       <div class="hero__buttons">
-        <a href="#" class="btn btn-primary">Join Umbrella</a>
+        <a href="#" class="btn btn-primary" data-waitlist>Join Umbrella</a>
         <a href="#experience" class="btn btn-secondary">Explore Tools</a>
       </div>
     </div>
@@ -1453,7 +1696,7 @@
       <p class="final-cta__subtitle">For the 8 million artists ready to be heard.</p>
 
       <div class="final-cta__buttons">
-        <a href="#" class="btn btn-primary">Join Umbrella ☂️</a>
+        <a href="#" class="btn btn-primary" data-waitlist>Join Umbrella ☂️</a>
         <a href="#experience" class="btn btn-secondary">See How It Works</a>
       </div>
 
@@ -1551,6 +1794,62 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============================================
+       WAITLIST MODAL
+       ============================================ -->
+  <div class="modal" id="waitlist-modal">
+    <div class="modal__overlay" id="modal-overlay"></div>
+    <div class="modal__content">
+      <button class="modal__close" id="modal-close" aria-label="Close modal">×</button>
+
+      <div class="modal__header">
+        <h2 class="modal__title">Join the Waitlist</h2>
+        <p class="modal__subtitle">Be the first to know when Umbrella launches. Get early access and exclusive updates.</p>
+      </div>
+
+      <form class="modal__form" id="waitlist-form">
+        <div class="modal__form-group">
+          <label for="email" class="modal__label">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="modal__input"
+            placeholder="artist@example.com"
+            required
+            autocomplete="email"
+          >
+          <span class="modal__error" id="email-error"></span>
+        </div>
+
+        <button type="submit" class="modal__submit btn btn-primary" id="submit-btn">
+          <span class="modal__submit-text">Join Waitlist</span>
+          <span class="modal__submit-loading" style="display: none;">
+            <span class="modal__spinner"></span>
+            Submitting...
+          </span>
+        </button>
+
+        <p class="modal__privacy">
+          We respect your privacy. Unsubscribe at any time.
+        </p>
+      </form>
+
+      <div class="modal__success" id="success-message" style="display: none;">
+        <div class="modal__success-icon">✓</div>
+        <h3 class="modal__success-title">You're on the list!</h3>
+        <p class="modal__success-text">Check your inbox for a confirmation email. We'll keep you posted on our launch.</p>
+      </div>
+
+      <div class="modal__error-message" id="error-message" style="display: none;">
+        <div class="modal__error-icon">!</div>
+        <h3 class="modal__error-title">Something went wrong</h3>
+        <p class="modal__error-text" id="error-text">Please try again later.</p>
+        <button class="btn btn-secondary" id="retry-btn">Try Again</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================
        JAVASCRIPT
@@ -1692,6 +1991,171 @@
     window.addEventListener('load', () => {
       // Mark as loaded
       document.body.classList.add('loaded');
+    });
+
+    // ============================================
+    // Waitlist Modal Functionality
+    // ============================================
+    const modal = document.getElementById('waitlist-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalClose = document.getElementById('modal-close');
+    const waitlistForm = document.getElementById('waitlist-form');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = submitBtn.querySelector('.modal__submit-text');
+    const submitLoading = submitBtn.querySelector('.modal__submit-loading');
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
+    const errorText = document.getElementById('error-text');
+    const retryBtn = document.getElementById('retry-btn');
+
+    // Replace this with your actual Google Apps Script Web App URL after deployment
+    const GOOGLE_APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+    // Open modal
+    function openModal() {
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      // Reset form state
+      waitlistForm.reset();
+      waitlistForm.style.display = 'block';
+      successMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
+      emailError.textContent = '';
+      emailInput.classList.remove('has-error');
+    }
+
+    // Close modal
+    function closeModal() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    // Email validation
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.toLowerCase());
+    }
+
+    // Show error state
+    function showError(message) {
+      waitlistForm.style.display = 'none';
+      errorMessage.style.display = 'block';
+      errorText.textContent = message;
+    }
+
+    // Show success state
+    function showSuccess() {
+      waitlistForm.style.display = 'none';
+      successMessage.style.display = 'block';
+    }
+
+    // Handle form submission
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+
+      // Validate email
+      if (!email) {
+        emailError.textContent = 'Email is required';
+        emailInput.classList.add('has-error');
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        emailError.textContent = 'Please enter a valid email address';
+        emailInput.classList.add('has-error');
+        return;
+      }
+
+      // Clear error state
+      emailError.textContent = '';
+      emailInput.classList.remove('has-error');
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitText.style.display = 'none';
+      submitLoading.style.display = 'flex';
+
+      try {
+        // Check if URL is configured
+        if (GOOGLE_APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+          throw new Error('Please configure your Google Apps Script URL in the code');
+        }
+
+        // Submit to Google Apps Script
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Google Apps Script requires no-cors mode
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            timestamp: new Date().toISOString(),
+            source: 'umbrellalive.com'
+          })
+        });
+
+        // Note: With no-cors mode, we can't read the response
+        // We assume success if no error was thrown
+        showSuccess();
+
+        // Optional: Track with analytics
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'waitlist_signup', {
+            event_category: 'engagement',
+            event_label: 'email_signup'
+          });
+        }
+
+      } catch (error) {
+        console.error('Submission error:', error);
+        showError(error.message || 'Something went wrong. Please try again later.');
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitText.style.display = 'inline';
+        submitLoading.style.display = 'none';
+      }
+    }
+
+    // Event listeners
+    waitlistForm.addEventListener('submit', handleSubmit);
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+    retryBtn.addEventListener('click', () => {
+      errorMessage.style.display = 'none';
+      waitlistForm.style.display = 'block';
+    });
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+
+    // Real-time email validation
+    emailInput.addEventListener('input', () => {
+      if (emailInput.classList.contains('has-error')) {
+        emailInput.classList.remove('has-error');
+        emailError.textContent = '';
+      }
+    });
+
+    // Attach modal trigger to all CTA buttons
+    // This will be done after updating the buttons with data-waitlist attribute
+    document.addEventListener('DOMContentLoaded', () => {
+      const waitlistTriggers = document.querySelectorAll('[data-waitlist]');
+      waitlistTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal();
+        });
+      });
     });
   </script>
 
