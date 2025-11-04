@@ -71,8 +71,22 @@ const NOTIFICATION_EMAIL = 'your-email@example.com';
 const SHEET_NAME = 'Sheet1';
 
 // ============================================
-// MAIN HANDLER FUNCTION
+// MAIN HANDLER FUNCTIONS
 // ============================================
+
+/**
+ * Handles GET requests (for testing the deployment)
+ * When you visit the Web App URL in a browser, this runs
+ */
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({
+      status: 'ok',
+      message: 'Umbrella Waitlist API is running',
+      instructions: 'This endpoint accepts POST requests with email data'
+    }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
 
 /**
  * Handles POST requests from the website
