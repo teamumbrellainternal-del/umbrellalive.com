@@ -2076,7 +2076,13 @@
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => {
-        emailInput.focus();
+        if (!emailInput) return;
+
+        try {
+          emailInput.focus({ preventScroll: true });
+        } catch (error) {
+          emailInput.focus();
+        }
       });
     }
 
