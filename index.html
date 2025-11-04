@@ -2187,7 +2187,10 @@
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(payload)
       });
 
