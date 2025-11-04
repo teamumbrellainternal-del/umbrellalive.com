@@ -1166,24 +1166,9 @@
     /* ============================================
        WAITLIST MODAL
        ============================================ */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-    /* ============================================
-       WAITLIST MODAL
-       ============================================ */
     .waitlist-modal {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       z-index: 9999;
@@ -1212,6 +1197,7 @@
       height: 100%;
       background: rgba(10, 10, 15, 0.95);
       backdrop-filter: blur(12px);
+      z-index: 1;
       animation: fadeIn 300ms ease;
     }
 
@@ -1225,6 +1211,8 @@
       padding: 48px 40px;
       animation: slideUp 400ms var(--ease-out);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+      transition: opacity 200ms ease, transform 200ms ease;
     }
 
     .waitlist-modal__close {
@@ -2090,10 +2078,11 @@
     function closeWaitlistModal() {
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-
-      // Reset form after animation completes
+      // Reset body scroll after the closing animation
       setTimeout(() => {
+        document.body.style.overflow = '';
+
+        // Reset form after animation completes
         waitlistForm.reset();
         waitlistForm.style.display = 'block';
         successMessage.style.display = 'none';
