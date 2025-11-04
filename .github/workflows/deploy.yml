@@ -47,15 +47,6 @@ jobs:
           echo "Deployment directory contents:"
           ls -la public/
 
-      # Create Cloudflare Pages project if it doesn't exist
-      - name: Create Cloudflare Pages project (if needed)
-        uses: cloudflare/wrangler-action@v3
-        continue-on-error: true
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages project create umbrellalive --production-branch=main
-
       # Deploy to Cloudflare Pages using Wrangler
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
