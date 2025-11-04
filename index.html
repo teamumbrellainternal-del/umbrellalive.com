@@ -2138,7 +2138,11 @@
         showSuccess();
       } catch (error) {
         console.error('Submission error:', error);
-        showError('Something went wrong. Please try again.');
+        if (error instanceof TypeError) {
+          showError('We could not connect to the waitlist service. Please check your connection and try again.');
+        } else {
+          showError('Something went wrong. Please try again.');
+        }
       } finally {
         setLoadingState(false);
       }
@@ -2182,11 +2186,23 @@
     async function submitToWaitlist(payload) {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
-      return response.json().catch(() => ({}));
+
+      let data = {};
+      try {
+        data = await response.json();
+      } catch (err) {
+        console.warn('Non-JSON response from server');
+      }
+
+      if (!response.ok || (data.status && data.status >= 400)) {
+        throw new Error(data.message || `Request failed: ${response.status}`);
+      }
+
+      return data;
     }
 
     // Console greeting
