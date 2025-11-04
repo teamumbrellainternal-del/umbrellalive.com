@@ -29,14 +29,40 @@ jobs:
           echo "Checking if brand submodule exists..."
           ls -la brand/
           ls -la brand/dist/ || echo "Brand dist folder not found"
-      
+
+      # Prepare deployment directory
+      - name: Prepare deployment files
+        run: |
+          echo "Creating public directory for deployment..."
+          mkdir -p public
+          cp index.html public/
+          # Copy brand assets if they exist
+          if [ -d "brand" ]; then
+            cp -r brand public/
+          fi
+          # Copy any other static assets
+          if [ -d "assets" ]; then
+            cp -r assets public/
+          fi
+          echo "Deployment directory contents:"
+          ls -la public/
+
+      # Create Cloudflare Pages project if it doesn't exist
+      - name: Create Cloudflare Pages project (if needed)
+        uses: cloudflare/wrangler-action@v3
+        continue-on-error: true
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create umbrellalive --production-branch=main
+
       # Deploy to Cloudflare Pages using Wrangler
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=umbrellalive --branch=main
+          command: pages deploy public --project-name=umbrellalive --branch=main --commit-dirty=true
       
       # Optional: Comment on PR with preview URL (if deploying from PR)
       - name: Add deployment summary
