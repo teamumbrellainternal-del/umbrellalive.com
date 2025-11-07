@@ -100,7 +100,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
           {/* Modal */}
           <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
             <motion.div
-              className="relative w-full max-w-[520px] bg-gradient-to-b from-purple-950/90 to-black/90 backdrop-blur-xl rounded-3xl border border-purple-500/20 shadow-2xl pointer-events-auto"
+              className="relative w-full max-w-[520px] bg-gradient-to-b from-[#0b0b0b] via-[#08030f] to-black rounded-3xl border border-purple-500/20 shadow-2xl pointer-events-auto"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -183,14 +183,16 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                         </label>
                         <Input
                           id="email"
+                          name="email"
                           type="email"
-                          placeholder="your@email.com"
+                          placeholder="Enter your email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-black/40 border-purple-500/30 focus:border-purple-400 focus-visible:border-purple-400 text-white placeholder:text-purple-300/40 rounded-xl h-12 px-4"
+                          className="w-full bg-black border-purple-500/30 focus:border-purple-400 focus-visible:border-purple-400 text-white placeholder:text-purple-300/60 rounded-xl h-12 px-4"
                           required
                           disabled={isLoading}
                           autoComplete="email"
+                          inputMode="email"
                         />
                       </div>
 
