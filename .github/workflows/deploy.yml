@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-  
+
   # Allow manual workflow dispatch
   workflow_dispatch:
 
@@ -13,39 +13,34 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
-    
+
     steps:
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          # Important: Fetch submodules (for brand assets)
-          submodules: recursive
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
-      # Optional: List files to verify submodule was cloned
-      - name: Verify submodule
-        run: |
-          echo "Checking if brand submodule exists..."
-          ls -la brand/
-          ls -la brand/dist/ || echo "Brand dist folder not found"
 
-      # Prepare deployment directory
-      - name: Prepare deployment files
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Build Vite app
+      - name: Build Vite application
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      # Verify build output
+      - name: Verify build output
         run: |
-          echo "Creating public directory for deployment..."
-          mkdir -p public
-          cp index.html public/
-          # Copy brand assets if they exist
-          if [ -d "brand" ]; then
-            cp -r brand public/
-          fi
-          # Copy any other static assets
-          if [ -d "assets" ]; then
-            cp -r assets public/
-          fi
-          echo "Deployment directory contents:"
-          ls -la public/
+          echo "Build completed. Contents of dist directory:"
+          ls -la dist/
 
       # Deploy to Cloudflare Pages using Wrangler
       - name: Deploy to Cloudflare Pages
@@ -53,14 +48,14 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=umbrellalive --branch=main --commit-dirty=true
-      
-      # Optional: Comment on PR with preview URL (if deploying from PR)
+          command: pages deploy dist --project-name=umbrellalive --branch=main --commit-dirty=true
+
+      # Add deployment summary
       - name: Add deployment summary
         if: success()
         run: |
           echo "### ✅ Deployment Successful!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Your site has been deployed to Cloudflare Pages." >> $GITHUB_STEP_SUMMARY
+          echo "Your React/Vite site has been deployed to Cloudflare Pages." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "🔗 **Production URL:** https://www.umbrellalive.com" >> $GITHUB_STEP_SUMMARY

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Button } from './ui/button';
+import { useWaitlist } from '../context/WaitlistContext';
 
 const rotatingTaglines = [
   "For the 8 million artists ready to be heard.",
@@ -10,6 +11,7 @@ const rotatingTaglines = [
 
 export function V3JoinMovement() {
   const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0);
+  const { openWaitlist } = useWaitlist();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -114,15 +116,16 @@ export function V3JoinMovement() {
         >
           {/* Primary CTA */}
           <motion.div
-            whileHover={{ 
+            whileHover={{
               scale: 1.04,
               transition: { duration: 0.35 }
             }}
             whileTap={{ scale: 0.98 }}
           >
-            <Button 
+            <Button
+              onClick={openWaitlist}
               className="relative bg-white text-black hover:bg-white/90 text-lg md:text-xl px-12 py-7 rounded-full overflow-hidden group"
-              style={{ 
+              style={{
                 boxShadow: '0 8px 30px rgba(138, 78, 255, 0.28)'
               }}
             >
