@@ -126,9 +126,9 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
           />
 
           {/* Modal */}
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 sm:px-6 py-8 pointer-events-none">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 sm:px-6 py-8">
             <motion.div
-              className="relative w-full max-w-[420px] sm:max-w-[460px] bg-gradient-to-b from-[#0b0b0b] via-[#08030f] to-black rounded-3xl border border-purple-500/20 shadow-2xl pointer-events-auto"
+              className="relative w-full max-w-[90vw] sm:max-w-[480px] lg:max-w-[33vw] bg-[#0f0f0f] rounded-3xl border border-purple-500/20 shadow-2xl"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
