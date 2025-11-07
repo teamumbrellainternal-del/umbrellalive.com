@@ -87,20 +87,16 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Overlay */}
-          <motion.div
+          {/* Overlay - SOLID BLACK, NO TRANSPARENCY */}
+          <div
             className="fixed inset-0 bg-black z-[9998]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
             onClick={handleClose}
           />
 
           {/* Modal */}
           <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 sm:px-6 py-8">
             <motion.div
-              className="relative w-full max-w-[40vw] bg-[#0f0f0f] rounded-3xl border border-purple-500/20 shadow-2xl"
+              className="relative w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-[#0f0f0f] rounded-3xl border border-purple-500/20 shadow-2xl"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
