@@ -89,7 +89,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[9998]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -98,9 +98,9 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
           />
 
           {/* Modal */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
             <motion.div
-              className="relative w-full max-w-md bg-gradient-to-b from-purple-950/90 to-black/90 backdrop-blur-xl rounded-3xl border border-purple-500/20 shadow-2xl pointer-events-auto"
+              className="relative w-full max-w-[520px] bg-gradient-to-b from-purple-950/90 to-black/90 backdrop-blur-xl rounded-3xl border border-purple-500/20 shadow-2xl pointer-events-auto"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -178,7 +178,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="space-y-2">
-                        <label htmlFor="email" className="text-sm text-purple-200/90 font-medium">
+                        <label htmlFor="email" className="text-sm text-purple-200/90 font-medium block">
                           Email address
                         </label>
                         <Input
@@ -187,9 +187,10 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                           placeholder="your@email.com"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-black/40 border-purple-500/30 focus:border-purple-400 text-white placeholder:text-purple-300/40 rounded-xl h-12"
+                          className="w-full bg-black/40 border-purple-500/30 focus:border-purple-400 focus-visible:border-purple-400 text-white placeholder:text-purple-300/40 rounded-xl h-12 px-4"
                           required
                           disabled={isLoading}
+                          autoComplete="email"
                         />
                       </div>
 
