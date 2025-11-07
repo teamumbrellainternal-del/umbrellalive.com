@@ -34,29 +34,57 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     setError(null);
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email.trim(),
-          timestamp: new Date().toISOString(),
-          source: 'umbrellalive.com'
-        })
-      });
+      const trimmedEmail = email.trim();
+      const timestamp = new Date().toISOString();
+      const submissionPayload = {
+        email: trimmedEmail,
+        timestamp,
+        source: 'umbrellalive.com'
+      };
 
-      let data = {};
+      let submissionSucceeded = false;
+
       try {
-        data = await response.json();
-      } catch (err) {
-        console.warn('Non-JSON response from server');
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(submissionPayload)
+        });
+
+        const data = await response.clone().json().catch(() => null);
+
+        if (!response.ok || (data && (data as any).status >= 400)) {
+          throw new Error((data as any)?.message || `Request failed: ${response.status}`);
+        }
+
+        submissionSucceeded = true;
+      } catch (primaryError) {
+        console.warn('Primary waitlist submission failed, trying fallback', primaryError);
+
+        const fallbackFormData = new FormData();
+        Object.entries(submissionPayload).forEach(([key, value]) => {
+          fallbackFormData.append(key, value);
+        });
+
+        const fallbackResponse = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: fallbackFormData
+        });
+
+        if (fallbackResponse.type === 'opaque' || fallbackResponse.ok) {
+          submissionSucceeded = true;
+        } else {
+          throw primaryError;
+        }
       }
 
-      if (!response.ok || (data as any).status >= 400) {
-        throw new Error((data as any).message || `Request failed: ${response.status}`);
+      if (!submissionSucceeded) {
+        throw new Error('Could not submit to the waitlist');
       }
 
       setIsSuccess(true);
@@ -89,7 +117,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[9998]"
+            className="fixed inset-0 bg-black backdrop-blur-sm z-[9998]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -98,9 +126,9 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
           />
 
           {/* Modal */}
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 sm:px-6 py-8 pointer-events-none">
             <motion.div
-              className="relative w-full max-w-[520px] bg-gradient-to-b from-[#0b0b0b] via-[#08030f] to-black rounded-3xl border border-purple-500/20 shadow-2xl pointer-events-auto"
+              className="relative w-full max-w-[420px] sm:max-w-[460px] bg-gradient-to-b from-[#0b0b0b] via-[#08030f] to-black rounded-3xl border border-purple-500/20 shadow-2xl pointer-events-auto"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -123,7 +151,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                 </svg>
               </button>
 
-              <div className="p-8">
+              <div className="p-6 sm:p-8">
                 {/* Success State */}
                 {isSuccess ? (
                   <motion.div
