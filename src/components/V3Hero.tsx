@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useWaitlist } from '../context/WaitlistContext';
 
 const concertImages = [
   "https://images.unsplash.com/photo-1758550445980-4d099c6de8d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsaXZlJTIwY29uY2VydCUyMGVuZXJneSUyMHN0YWdlJTIwbGlnaHRzJTIwY3Jvd2R8ZW58MXx8fHwxNzU5NjE4MTAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -12,7 +13,8 @@ const concertImages = [
 export function V3Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  
+  const { openWaitlist } = useWaitlist();
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"]
@@ -137,20 +139,21 @@ export function V3Hero() {
           transition={{ duration: 0.3, delay: 1.4 }}
         >
           <motion.div
-            whileHover={{ 
+            whileHover={{
               scale: 1.03,
               transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }
             }}
             whileTap={{ scale: 0.98 }}
           >
-            <Button 
+            <Button
+              onClick={openWaitlist}
               className="relative bg-white text-black hover:bg-white/90 text-base md:text-lg px-10 py-6 rounded-full overflow-hidden group"
-              style={{ 
+              style={{
                 boxShadow: '0 8px 30px rgba(138, 78, 255, 0.28)'
               }}
             >
               <span className="relative z-10">Join Umbrella</span>
-              
+
               {/* Underline draw effect */}
               <motion.div
                 className="absolute bottom-2 left-1/2 -translate-x-1/2 h-0.5 bg-purple-600"
