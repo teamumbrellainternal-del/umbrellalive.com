@@ -89,7 +89,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 bg-black/95 z-[9998]"
+            className="fixed inset-0 bg-black z-[9998]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -100,7 +100,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
           {/* Modal */}
           <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 sm:px-6 py-8">
             <motion.div
-              className="relative w-full max-w-[90vw] sm:max-w-[480px] lg:max-w-[33vw] bg-[#0f0f0f] rounded-3xl border border-purple-500/20 shadow-2xl"
+              className="relative w-full max-w-[40vw] bg-[#0f0f0f] rounded-3xl border border-purple-500/20 shadow-2xl"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -188,7 +188,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                           placeholder="Enter your email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full bg-black border-purple-500/30 focus:border-purple-400 focus-visible:border-purple-400 text-white placeholder:text-purple-300/60 rounded-xl h-12 px-4"
+                          className="w-full bg-black border-purple-500/30 focus:border-purple-400 focus-visible:border-purple-400 text-white placeholder:text-purple-300/60 rounded-xl h-16 px-4"
                           required
                           disabled={isLoading}
                           autoComplete="email"
