@@ -34,57 +34,29 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     setError(null);
 
     try {
-      const trimmedEmail = email.trim();
-      const timestamp = new Date().toISOString();
-      const submissionPayload = {
-        email: trimmedEmail,
-        timestamp,
-        source: 'umbrellalive.com'
-      };
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          timestamp: new Date().toISOString(),
+          source: 'umbrellalive.com'
+        })
+      });
 
-      let submissionSucceeded = false;
-
+      let data = {};
       try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-          },
-          body: JSON.stringify(submissionPayload)
-        });
-
-        const data = await response.clone().json().catch(() => null);
-
-        if (!response.ok || (data && (data as any).status >= 400)) {
-          throw new Error((data as any)?.message || `Request failed: ${response.status}`);
-        }
-
-        submissionSucceeded = true;
-      } catch (primaryError) {
-        console.warn('Primary waitlist submission failed, trying fallback', primaryError);
-
-        const fallbackFormData = new FormData();
-        Object.entries(submissionPayload).forEach(([key, value]) => {
-          fallbackFormData.append(key, value);
-        });
-
-        const fallbackResponse = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: fallbackFormData
-        });
-
-        if (fallbackResponse.type === 'opaque' || fallbackResponse.ok) {
-          submissionSucceeded = true;
-        } else {
-          throw primaryError;
-        }
+        data = await response.json();
+      } catch (err) {
+        console.warn('Non-JSON response from server');
       }
 
-      if (!submissionSucceeded) {
-        throw new Error('Could not submit to the waitlist');
+      if (!response.ok || ((data as any).status && (data as any).status >= 400)) {
+        throw new Error((data as any).message || `Request failed: ${response.status}`);
       }
 
       setIsSuccess(true);
@@ -117,7 +89,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 bg-black backdrop-blur-sm z-[9998]"
+            className="fixed inset-0 bg-black/95 z-[9998]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
