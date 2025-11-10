@@ -18,6 +18,18 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const [error, setError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [portalElement] = useState<HTMLElement | null>(() => {
+    if (typeof document === 'undefined') {
+      return null;
+    }
+
+    const element = document.createElement('div');
+    element.setAttribute('id', 'waitlist-modal-root');
+    element.style.position = 'relative';
+    element.style.zIndex = '2147483647';
+    element.style.isolation = 'isolate';
+    return element;
+  });
 
   useEffect(() => {
     setIsMounted(true);
@@ -25,6 +37,20 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
       setIsMounted(false);
     };
   }, []);
+
+  useEffect(() => {
+    if (!portalElement || typeof document === 'undefined') {
+      return;
+    }
+
+    document.body.appendChild(portalElement);
+
+    return () => {
+      if (portalElement.parentNode) {
+        portalElement.parentNode.removeChild(portalElement);
+      }
+    };
+  }, [portalElement]);
 
   useEffect(() => {
     if (!isMounted || !isOpen) {
@@ -105,7 +131,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     onClose();
   };
 
-  if (!isMounted) {
+  if (!isMounted || !portalElement) {
     return null;
   }
 
@@ -115,12 +141,12 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         <>
           {/* Overlay - SOLID BLACK, NO TRANSPARENCY */}
           <div
-            className="fixed inset-0 bg-black z-[9998]"
+            className="fixed inset-0 bg-black z-[2147483646]"
             onClick={handleClose}
           />
 
           {/* Modal */}
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 sm:px-6 py-8">
+          <div className="fixed inset-0 z-[2147483647] flex items-center justify-center px-4 sm:px-6 py-8">
             <motion.div
               className="relative w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-[#0f0f0f] rounded-3xl border border-purple-500/20 shadow-2xl"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -278,6 +304,6 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         </>
       )}
     </AnimatePresence>,
-    document.body
+    portalElement
   );
 }
