@@ -171,9 +171,8 @@ export function V3Hero() {
             }}
             whileTap={{ scale: 0.98 }}
           >
-            <Button 
-              variant="outline"
-              className="text-white border-2 border-purple-400/50 hover:border-purple-300 hover:bg-purple-500/10 text-base md:text-lg px-10 py-6 rounded-full"
+            <Button
+              className="relative bg-white text-black hover:bg-white/90 text-base md:text-lg px-10 py-6 rounded-full border-2 border-purple-400/60 shadow-[0_12px_40px_rgba(138,78,255,0.12)] transition-all duration-300"
             >
               Explore Tools
             </Button>

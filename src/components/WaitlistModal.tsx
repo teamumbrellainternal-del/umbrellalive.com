@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { createPortal } from 'react-dom';
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -16,6 +17,27 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !isOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMounted, isOpen]);
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -83,7 +105,11 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     onClose();
   };
 
-  return (
+  if (!isMounted) {
+    return null;
+  }
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -251,6 +277,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
           </div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
