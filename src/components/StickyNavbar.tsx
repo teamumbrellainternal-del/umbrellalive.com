@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from './ui/button';
 import { Menu, X, Umbrella } from 'lucide-react';
+import { useWaitlist } from '../context/WaitlistContext';
 
 export function StickyNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { openWaitlist } = useWaitlist();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,6 +38,12 @@ export function StickyNavbar() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleWaitlistClick = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    openWaitlist();
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 spotify-nav transition-all duration-300 ${
@@ -63,8 +71,17 @@ export function StickyNavbar() {
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          <a href="#login" className="text-white hover:text-purple-300 transition-all duration-300">Log in</a>
-          <Button className="bg-white text-black hover:bg-purple-100 transition-all duration-300 hover:scale-105 py-3 px-8 rounded-full">
+          <button
+            type="button"
+            onClick={handleWaitlistClick}
+            className="text-white hover:text-purple-300 transition-all duration-300"
+          >
+            Log in
+          </button>
+          <Button
+            onClick={handleWaitlistClick}
+            className="bg-white text-black hover:bg-purple-100 transition-all duration-300 hover:scale-105 py-3 px-8 rounded-full"
+          >
             Sign up free
           </Button>
         </div>
@@ -92,8 +109,19 @@ export function StickyNavbar() {
             <a href="#discover" className="block text-white hover:text-gray-300 transition-colors duration-300">Discover</a>
             <a href="#create" onClick={handleCreateClick} className="block text-white hover:text-gray-300 transition-colors duration-300 cursor-pointer">Create</a>
             <div className="pt-4 space-y-3">
-              <a href="#login" className="block text-white hover:text-gray-300 transition-colors duration-300">Log in</a>
-              <Button className="w-full bg-white text-black hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-all duration-300">Sign up free</Button>
+              <button
+                type="button"
+                onClick={handleWaitlistClick}
+                className="block w-full text-left text-white hover:text-gray-300 transition-colors duration-300"
+              >
+                Log in
+              </button>
+              <Button
+                onClick={handleWaitlistClick}
+                className="w-full bg-white text-black hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-all duration-300"
+              >
+                Sign up free
+              </Button>
             </div>
           </motion.div>
         )}
