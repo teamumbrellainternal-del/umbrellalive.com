@@ -175,9 +175,9 @@ export function V3JoinMovement() {
             }}
             whileTap={{ scale: 0.98 }}
           >
-            <Button 
+            <Button
               variant="outline"
-              className="text-white border-2 border-purple-400/50 hover:border-purple-300 hover:bg-purple-500/10 text-lg md:text-xl px-12 py-7 rounded-full"
+              className="!text-white hover:!text-white focus-visible:!text-white border-2 border-purple-400/50 hover:border-purple-300 hover:bg-purple-500/10 text-lg md:text-xl px-12 py-7 rounded-full"
             >
               See How It Works
             </Button>
