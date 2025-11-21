@@ -1,28 +1,520 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Violet by Umbrella</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- SEO Meta Tags -->
-    <title>Umbrella - The Home Base for Independent Artists</title>
-    <meta name="description" content="Everything you create, connected under one Umbrella. Promote, perform, and get paid — all in one place.">
-    <link rel="canonical" href="https://www.umbrellalive.com">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Umbrella - The Home Base for Independent Artists">
-    <meta property="og:description" content="The operating system for live music. Join 8 million independent artists.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.umbrellalive.com">
+        /* Video Background */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Umbrella - The Home Base for Independent Artists">
-    <meta name="twitter:description" content="Everything you create, connected under one Umbrella.">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Vignette overlays */
+        .vignette-top, .vignette-bottom {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .vignette-top {
+            top: 0;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.8) 0%, 
+                rgba(0,0,0,0.4) 50%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        .vignette-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, 
+                rgba(0,0,0,0.9) 0%, 
+                rgba(0,0,0,0.5) 50%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        /* Blur gradient effects */
+        .blur-gradient-top, .blur-gradient-bottom {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .blur-gradient-top {
+            top: 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            mask-image: linear-gradient(to bottom, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        .blur-gradient-bottom {
+            bottom: 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            mask-image: linear-gradient(to top, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0) 100%);
+        }
+
+        /* Main content container */
+        .content {
+            position: relative;
+            z-index: 3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #fff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-subtitle {
+            font-size: 14px;
+            opacity: 0.6;
+            letter-spacing: -0.01em;
+        }
+
+        .logo-subtitle a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 16px 22px rgba(0,0,0,0.03), 
+                        0 2px 4px rgba(0,0,0,0.04), 
+                        0 0 1px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 20px 28px rgba(0,0,0,0.08);
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+        footer {
+            padding: 32px 48px;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+            letter-spacing: -0.01em;
+        }
+
+        footer a:hover {
+            opacity: 1;
+        }
+
+        /* Modal/Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            max-width: 600px;
+            padding: 48px;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+
+        .modal-content h2 {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 16px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .modal-content a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .modal-button {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            font-size: 32px;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 16px 24px;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            footer {
+                padding: 24px;
+                flex-wrap: wrap;
+                gap: 24px;
+                font-size: 12px;
+            }
+
+            .modal-content {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-container">
+        <!-- 
+        IMPORTANT: Replace with your video path
+        
+        Option 1 - If video is in same directory as index.html:
+        <source src="./video.mp4" type="video/mp4">
+        <source src="./video.webm" type="video/webm">
+        
+        Option 2 - If video is in a subfolder:
+        <source src="./assets/video.mp4" type="video/mp4">
+        
+        Option 3 - MOV file (less compatible):
+        <source src="./video.mov" type="video/quicktime">
+        -->
+        <video autoplay loop muted playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect fill='%23111' width='1920' height='1080'/%3E%3C/svg%3E">
+            <!-- Replace these paths with your actual video file -->
+            <source src="./video.webm" type="video/webm">
+            <source src="./video.mp4" type="video/mp4">
+            <source src="./video.mov" type="video/quicktime">
+        </video>
+    </div>
+
+    <!-- Vignette overlays -->
+    <div class="vignette-top"></div>
+    <div class="vignette-bottom"></div>
+
+    <!-- Blur gradients -->
+    <div class="blur-gradient-top"></div>
+    <div class="blur-gradient-bottom"></div>
+
+    <!-- Main content -->
+    <div class="content">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">V</div>
+                <div class="logo-text">
+                    <div class="logo-title">Violet</div>
+                    <div class="logo-subtitle">
+                        <a href="#company" class="open-modal" data-modal="company">by Umbrella</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="#film" class="btn btn-ghost">Watch the film</a>
+                <a href="#login" class="btn btn-ghost">Log in</a>
+                <a href="#start" class="btn btn-primary">Get Started</a>
+            </div>
+        </nav>
+
+        <!-- Main content area -->
+        <div class="main-content">
+            <!-- You can add content here -->
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <a href="#company" class="open-modal" data-modal="company">Company</a>
+            <a href="#privacy" class="open-modal" data-modal="privacy">Privacy</a>
+            <a href="#cookies" class="open-modal" data-modal="cookies">Cookies</a>
+            <a href="#terms" class="open-modal" data-modal="terms">Terms</a>
+            <a href="https://twitter.com/umbrella" target="_blank" rel="noopener">Twitter</a>
+        </footer>
+    </div>
+
+    <!-- Modal Overlay for Company -->
+    <div class="modal-overlay" id="modal-company">
+        <button class="close-modal" onclick="closeModal('company')">&times;</button>
+        <div class="modal-content">
+            <div class="modal-icon">☂️</div>
+            <h2>Hi! We're The Umbrella Company.</h2>
+            <p>If you wanna join us in building products for a billion humans, apply at <a href="https://umbrella.co/jobs" target="_blank">umbrella.co/jobs</a>!</p>
+            <p>Get access here:</p>
+            <div class="modal-button">Violet</div>
+            <p style="margin-top: 24px;">Feel free to reach out at <a href="mailto:hi@umbrella.co">hi@umbrella.co</a> or follow along our journey at <a href="https://twitter.com/umbrella" target="_blank">twitter.com/umbrella</a> ☂️</p>
+        </div>
+    </div>
+
+    <!-- Modal Overlay for Privacy -->
+    <div class="modal-overlay" id="modal-privacy">
+        <button class="close-modal" onclick="closeModal('privacy')">&times;</button>
+        <div class="modal-content">
+            <h2>Privacy Policy</h2>
+            <p>Your privacy is important to us. This is where our privacy policy would go.</p>
+            <p>We collect minimal data and respect your digital rights.</p>
+        </div>
+    </div>
+
+    <!-- Modal Overlay for Cookies -->
+    <div class="modal-overlay" id="modal-cookies">
+        <button class="close-modal" onclick="closeModal('cookies')">&times;</button>
+        <div class="modal-content">
+            <h2>Cookie Policy</h2>
+            <p>We use cookies to enhance your browsing experience and analyze site traffic.</p>
+            <p>Essential cookies are required for the site to function properly.</p>
+        </div>
+    </div>
+
+    <!-- Modal Overlay for Terms -->
+    <div class="modal-overlay" id="modal-terms">
+        <button class="close-modal" onclick="closeModal('terms')">&times;</button>
+        <div class="modal-content">
+            <h2>Terms of Service</h2>
+            <p>By using this service, you agree to our terms and conditions.</p>
+            <p>Please read these carefully before proceeding.</p>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modalLinks = document.querySelectorAll('.open-modal');
+        
+        modalLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const modalId = link.getAttribute('data-modal');
+                openModal(modalId);
+            });
+        });
+
+        function openModal(modalId) {
+            const modal = document.getElementById(`modal-${modalId}`);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(`modal-${modalId}`);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+
+        // Ensure video plays on mobile
+        const video = document.querySelector('video');
+        if (video) {
+            video.play().catch(e => {
+                console.log('Autoplay prevented:', e);
+            });
+        }
+    </script>
+</body>
 </html>
