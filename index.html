@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <title>Violet by Umbrella</title>
     <style>
         * {
@@ -413,7 +414,7 @@
             <a href="#privacy" class="open-modal" data-modal="privacy">Privacy</a>
             <a href="#cookies" class="open-modal" data-modal="cookies">Cookies</a>
             <a href="#terms" class="open-modal" data-modal="terms">Terms</a>
-            <a href="https://twitter.com/umbrella" target="_blank" rel="noopener">Twitter</a>
+            <a href="https://www.linkedin.com/company/umbrellalive/" target="_blank" rel="noopener">LinkedIn</a>
         </footer>
     </div>
 
@@ -423,20 +424,101 @@
         <div class="modal-content">
             <div class="modal-icon">☂️</div>
             <h2>Hi! We're The Umbrella Company.</h2>
-            <p>If you wanna join us in building products for a billion humans, apply at <a href="https://umbrella.co/jobs" target="_blank">umbrella.co/jobs</a>!</p>
+            <p>If you wanna join us in building products for a billion humans, reach out at <a href="https://calendly.com/jibran-umbrellalive/new-meeting" target="_blank">Calendly</a>!</p>
             <p>Get access here:</p>
             <div class="modal-button">Violet</div>
-            <p style="margin-top: 24px;">Feel free to reach out at <a href="mailto:hi@umbrella.co">hi@umbrella.co</a> or follow along our journey at <a href="https://twitter.com/umbrella" target="_blank">twitter.com/umbrella</a> ☂️</p>
+            <p style="margin-top: 24px;">Feel free to reach out at <a href="https://calendly.com/jibran-umbrellalive/new-meeting" target="_blank">Calendly</a> or follow along our journey at <a href="https://www.linkedin.com/company/umbrellalive/" target="_blank">LinkedIn</a> ☂️</p>
         </div>
     </div>
 
     <!-- Modal Overlay for Privacy -->
     <div class="modal-overlay" id="modal-privacy">
         <button class="close-modal" onclick="closeModal('privacy')">&times;</button>
-        <div class="modal-content">
+        <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
             <h2>Privacy Policy</h2>
-            <p>Your privacy is important to us. This is where our privacy policy would go.</p>
-            <p>We collect minimal data and respect your digital rights.</p>
+            <p style="font-size: 14px; opacity: 0.6;">Last updated: November 17, 2025</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">1. Information We Collect</h3>
+            <p>We collect information you provide directly to us, including:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Account information (name, email address, password)</li>
+                <li>Profile information (bio, location, genre, skills, photos)</li>
+                <li>Content you upload (audio files, images, documents)</li>
+                <li>Messages and communications with other users</li>
+                <li>Payment and billing information</li>
+                <li>Usage data and analytics</li>
+            </ul>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">2. How We Use Your Information</h3>
+            <p>We use the information we collect to:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Provide, maintain, and improve our services</li>
+                <li>Create and manage your account</li>
+                <li>Process transactions and send related information</li>
+                <li>Send you technical notices, updates, and support messages</li>
+                <li>Respond to your comments and questions</li>
+                <li>Provide personalized content and recommendations</li>
+                <li>Monitor and analyze trends, usage, and activities</li>
+                <li>Detect, prevent, and address technical issues and fraud</li>
+            </ul>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">3. Information Sharing</h3>
+            <p>We do not sell your personal information. We may share your information in the following circumstances:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>With other users as part of the platform functionality (e.g., your public profile)</li>
+                <li>With service providers who perform services on our behalf</li>
+                <li>To comply with legal obligations</li>
+                <li>To protect the rights, property, and safety of Umbrella, our users, or others</li>
+                <li>With your consent or at your direction</li>
+            </ul>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">4. Third-Party Services</h3>
+            <p>We use the following third-party service providers to operate our platform. Each service has its own privacy policy:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li><strong>Clerk</strong> - Authentication and user management. Processes account information and login credentials.</li>
+                <li><strong>Cloudflare</strong> - Infrastructure, CDN, and DDoS protection. Processes network traffic and may collect IP addresses.</li>
+                <li><strong>Resend</strong> - Email delivery service. Processes email addresses and message content for transactional emails.</li>
+                <li><strong>Twilio</strong> - SMS and communications. Processes phone numbers for notifications and verification.</li>
+                <li><strong>Anthropic (Claude)</strong> - AI-powered assistance. Processes your prompts and content for AI features (Violet).</li>
+            </ul>
+            <p>We ensure these providers maintain appropriate security and privacy standards.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">5. Data Storage and Security</h3>
+            <p>We store your data on secure servers provided by Cloudflare (D1 database and R2 storage). We implement industry-standard security measures to protect your information, including encryption in transit and at rest.</p>
+            <p>However, no method of transmission over the Internet or electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your information, we cannot guarantee its absolute security.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">6. Your Rights (California CCPA)</h3>
+            <p>If you are a California resident, you have the following rights under the California Consumer Privacy Act (CCPA):</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li><strong>Right to Know:</strong> You can request information about the personal data we collect, use, and share.</li>
+                <li><strong>Right to Delete:</strong> You can request deletion of your personal data through the account deletion feature in your settings.</li>
+                <li><strong>Right to Opt-Out:</strong> We do not sell your personal information. If our practices change, we will update this policy and provide an opt-out mechanism.</li>
+                <li><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your CCPA rights.</li>
+            </ul>
+            <p>To exercise these rights, please contact us at privacy@umbrella.app or use the account deletion feature in your account settings.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">7. Cookies and Tracking</h3>
+            <p>We use cookies and similar tracking technologies to collect information about your browsing activities. This includes:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Essential cookies for authentication and security (via Clerk)</li>
+                <li>Cookies to remember your preferences and settings</li>
+                <li>Analytics cookies to understand how you use our service</li>
+            </ul>
+            <p>You can control cookies through your browser settings. See our Cookie Policy for more details.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">8. Children's Privacy</h3>
+            <p>Our Service is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you become aware that a child has provided us with personal information, please contact us. If we discover that a child under 13 has provided us with personal information, we will delete such information from our systems.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">9. Changes to This Policy</h3>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">10. Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Email: privacy@umbrella.app</li>
+                <li>General inquiries: support@umbrella.app</li>
+            </ul>
+            <p style="margin-top: 16px; font-size: 12px; opacity: 0.6;"><em>Note: This privacy policy is provided for MVP testing purposes. Before public launch, this content must be reviewed and approved by legal counsel to ensure compliance with all applicable privacy laws and regulations.</em></p>
         </div>
     </div>
 
@@ -453,10 +535,59 @@
     <!-- Modal Overlay for Terms -->
     <div class="modal-overlay" id="modal-terms">
         <button class="close-modal" onclick="closeModal('terms')">&times;</button>
-        <div class="modal-content">
+        <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
             <h2>Terms of Service</h2>
-            <p>By using this service, you agree to our terms and conditions.</p>
-            <p>Please read these carefully before proceeding.</p>
+            <p style="font-size: 14px; opacity: 0.6;">Last updated: November 17, 2025</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">1. Acceptance of Terms</h3>
+            <p>By accessing and using Umbrella ("the Service"), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to these Terms of Service, please do not use the Service.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">2. User Accounts</h3>
+            <p>To access certain features of the Service, you must register for an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Provide accurate, current, and complete information during registration</li>
+                <li>Maintain and promptly update your account information</li>
+                <li>Maintain the security of your password and accept all risks of unauthorized access</li>
+                <li>Notify us immediately if you discover or suspect any security breaches</li>
+            </ul>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">3. Service Description</h3>
+            <p>Umbrella is a platform connecting independent artists with opportunities, providing tools for profile management, file storage, messaging, AI-powered assistance, and marketplace features for gigs and collaborations.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">4. Content Ownership and Rights</h3>
+            <p>You retain all rights to content you upload to the Service. By uploading content, you grant Umbrella a worldwide, non-exclusive, royalty-free license to use, reproduce, distribute, and display your content solely for the purpose of operating and providing the Service.</p>
+            <p>You represent and warrant that you own or have the necessary rights to all content you upload and that such content does not violate any third-party rights.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">5. Prohibited Uses</h3>
+            <p>You agree not to use the Service to:</p>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Violate any laws or regulations</li>
+                <li>Infringe on intellectual property rights of others</li>
+                <li>Upload malicious code, viruses, or harmful content</li>
+                <li>Harass, abuse, or harm other users</li>
+                <li>Impersonate any person or entity</li>
+                <li>Spam or send unsolicited messages</li>
+                <li>Interfere with or disrupt the Service or servers</li>
+                <li>Collect user data without consent</li>
+            </ul>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">6. Termination</h3>
+            <p>We reserve the right to suspend or terminate your account at any time, with or without notice, for conduct that we believe violates these Terms of Service or is harmful to other users, us, or third parties, or for any other reason at our sole discretion.</p>
+            <p>You may terminate your account at any time through the account settings page. Upon termination, your right to use the Service will immediately cease.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">7. Disclaimers</h3>
+            <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE. WE DO NOT WARRANT THE ACCURACY OR COMPLETENESS OF ANY CONTENT ON THE SERVICE.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">8. Limitation of Liability</h3>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, UMBRELLA SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">9. Governing Law</h3>
+            <p>These Terms of Service shall be governed by and construed in accordance with the laws of the United States, without regard to its conflict of law provisions. Any disputes arising from these terms shall be resolved in the courts of the United States.</p>
+
+            <h3 style="margin-top: 24px; font-size: 16px; font-weight: 600;">10. Changes to Terms</h3>
+            <p>We reserve the right to modify these Terms of Service at any time. We will notify users of any material changes by posting a notice on the Service or by email. Your continued use of the Service after such modifications constitutes your acceptance of the updated terms.</p>
+
+            <p style="margin-top: 24px;">If you have any questions about these Terms of Service, please contact us at legal@umbrella.app</p>
         </div>
     </div>
 
