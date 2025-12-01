@@ -1,10 +1,8 @@
 name: Deploy to Cloudflare Pages
 on:
-  # Trigger on push to main branch
   push:
     branches:
       - main
-  # Allow manual workflow dispatch
   workflow_dispatch:
 
 jobs:
@@ -12,11 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
     steps:
-      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Verify files exist
       - name: Verify build output
         run: |
           echo "Contents of repository:"
@@ -31,17 +27,42 @@ jobs:
           fi
           echo ""
           echo "Checking for video files..."
-          ls -la *.mov *.mp4 *.webm 2>/dev/null || echo "No video files found yet"
+          ls -lah *.webm *.mp4 *.mov 2>/dev/null || echo "No video files found"
+          echo ""
+          echo "Total size of deployable files:"
+          du -sh . --exclude='.git' --exclude='old' --exclude='*.old'
 
-      # Deploy to Cloudflare Pages using Wrangler
+      # Clean up files we don't want to deploy
+      - name: Prepare deployment directory
+        run: |
+          rm -rf old
+          rm -f *.old
+          rm -rf .git .github .gitignore
+          echo "Files to deploy:"
+          ls -lah
+
       - name: Deploy to Cloudflare Pages
+        id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy . --project-name=umbrellalive --branch=main --commit-dirty=true
+        env:
+          WRANGLER_LOG: debug
 
-      # Add deployment summary
+      - name: Print deployment output
+        if: always()
+        run: |
+          echo "=== Command Output ==="
+          echo "${{ steps.deploy.outputs.command-output }}"
+          echo ""
+          echo "=== Command Stderr ==="
+          echo "${{ steps.deploy.outputs.command-stderr }}"
+          echo ""
+          echo "=== Deployment URL ==="
+          echo "${{ steps.deploy.outputs.deployment-url }}"
+
       - name: Add deployment summary
         if: success()
         run: |
