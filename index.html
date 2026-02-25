@@ -912,7 +912,7 @@
             try {
                 const response = await fetch(SIGNUP_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'cors',
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'text/plain;charset=utf-8',
                         'Accept': 'application/json'
