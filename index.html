@@ -851,7 +851,7 @@
         }
 
         // Waitlist form handling
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZ9KVpz163DCHb1Oo2U-oz8MCLTk2LU8Bt2RizeTSpZpYRg0iwnVNJS9ROgi94eWqd/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcPWOfeeyYUcbeu7k3VPtbyNGY8X047ZfJxNThnuxEWrHsCjPOx95JOTTfD1VQCF_2/exec';
 
         const waitlistForm = document.getElementById('waitlist-form');
         const waitlistEmail = document.getElementById('waitlist-email');
@@ -912,7 +912,7 @@
             try {
                 const response = await fetch(SIGNUP_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'text/plain;charset=utf-8',
                         'Accept': 'application/json'
