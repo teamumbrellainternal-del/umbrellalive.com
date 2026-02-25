@@ -910,12 +910,11 @@
             signupError.style.display = 'none';
 
             try {
-                const response = await fetch(SIGNUP_SCRIPT_URL, {
+                await fetch(SIGNUP_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: {
                         'Content-Type': 'text/plain;charset=utf-8',
-                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
                         name: name,
@@ -924,27 +923,15 @@
                     })
                 });
 
-                let data = {};
-                try {
-                    data = await response.json();
-                } catch (err) {
-                    console.warn('Non-JSON response from server');
-                }
-
-                if (!response.ok || (data.status && data.status >= 400)) {
-                    throw new Error(data.message || 'Request failed: ' + response.status);
-                }
-
+                // With mode: 'no-cors', the response is opaque so we cannot
+                // read response.ok, status, or body. If fetch resolved without
+                // throwing, the request was sent successfully.
                 signupForm.style.display = 'none';
                 signupSuccess.style.display = 'block';
 
             } catch (error) {
                 console.error('Signup error:', error);
-                if (error instanceof TypeError) {
-                    signupError.textContent = 'Could not connect. Please check your connection and try again.';
-                } else {
-                    signupError.textContent = 'Something went wrong. Please try again.';
-                }
+                signupError.textContent = 'Could not connect. Please check your connection and try again.';
                 signupError.style.display = 'block';
             } finally {
                 signupSubmit.disabled = false;
