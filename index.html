@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
     <title></title>
     <style>
         * {
@@ -13,9 +17,9 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #000;
-            color: #fff;
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #FFFFFF;
             overflow-x: hidden;
         }
 
@@ -143,7 +147,7 @@
 
         .logo-subtitle {
             font-size: 14px;
-            opacity: 0.6;
+            color: #919093;
             letter-spacing: -0.01em;
         }
 
@@ -162,6 +166,7 @@
             padding: 10px 20px;
             border-radius: 12px;
             border: none;
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
@@ -172,7 +177,7 @@
 
         .btn-ghost {
             background: transparent;
-            color: #fff;
+            color: #FFFFFF;
         }
 
         .btn-ghost:hover {
@@ -180,16 +185,13 @@
         }
 
         .btn-primary {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 16px 22px rgba(0,0,0,0.03), 
-                        0 2px 4px rgba(0,0,0,0.04), 
-                        0 0 1px rgba(0,0,0,0.2);
+            background: #FFFFFF;
+            color: #000000;
         }
 
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 20px 28px rgba(0,0,0,0.08);
+            opacity: 0.9;
         }
 
         /* Main content area */
@@ -209,17 +211,16 @@
         }
 
         footer a {
-            color: #fff;
+            color: #919093;
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            opacity: 0.6;
-            transition: opacity 0.2s ease;
+            transition: color 0.2s ease;
             letter-spacing: -0.01em;
         }
 
         footer a:hover {
-            opacity: 1;
+            color: #FFFFFF;
         }
 
         /* Modal/Overlay */
@@ -253,9 +254,12 @@
         }
 
         .modal-content {
+            background: #101012;
+            border-radius: 16px;
             max-width: 600px;
             padding: 48px;
             animation: slideUp 0.4s ease;
+            width: 100%;
         }
 
         @keyframes slideUp {
@@ -275,23 +279,28 @@
         }
 
         .modal-content h2 {
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.6;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.4;
             margin-bottom: 24px;
-            font-family: 'Courier New', monospace;
+            color: #FFFFFF;
+        }
+
+        .modal-content .modal-title-display {
+            font-family: 'Instrument Serif', serif;
+            font-size: 32px;
+            font-weight: 400;
         }
 
         .modal-content p {
             font-size: 16px;
             line-height: 1.8;
-            opacity: 0.8;
+            color: #919093;
             margin-bottom: 16px;
-            font-family: 'Courier New', monospace;
         }
 
         .modal-content a {
-            color: #fff;
+            color: #FFFFFF;
             text-decoration: underline;
         }
 
@@ -300,11 +309,11 @@
             margin-top: 24px;
             padding: 8px 16px;
             background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 4px;
-            color: #fff;
-            font-family: 'Courier New', monospace;
+            border: 1px solid #2E2E33;
+            border-radius: 8px;
+            color: #FFFFFF;
             cursor: pointer;
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         .close-modal {
@@ -312,7 +321,7 @@
             top: 32px;
             right: 32px;
             font-size: 32px;
-            color: #fff;
+            color: #FFFFFF;
             cursor: pointer;
             opacity: 0.6;
             transition: opacity 0.2s ease;
@@ -328,6 +337,127 @@
 
         .close-modal:hover {
             opacity: 1;
+        }
+
+        /* Signup form styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #919093;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1C1C1F;
+            border: 1px solid #2E2E33;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #FFFFFF;
+        }
+
+        .form-input::placeholder {
+            color: #6A6A72;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1C1C1F;
+            border: 1px solid #2E2E33;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23919093' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #FFFFFF;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px 20px;
+            background: #FFFFFF;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-error {
+            color: #F2401B;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .form-success {
+            text-align: center;
+        }
+
+        .form-success p {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .btn-calendly {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #FFFFFF;
+            color: #000000;
+            border-radius: 12px;
+            font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-calendly:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+            color: #000000;
+            text-decoration: none;
         }
 
         /* Responsive */
@@ -352,6 +482,7 @@
 
             .modal-content {
                 padding: 32px 24px;
+                margin: 16px;
             }
         }
     </style>
@@ -401,9 +532,8 @@
             </div>
 
             <div class="nav-buttons">
-                <a href="https://www.youtube.com/watch?v=kWuz0zKDvjM" class="btn btn-primary" target="_blank">Watch the film</a>
-                <a href="https://app.umbrellalive.com" class="btn btn-ghost" target="_blank">Log in</a>
-                <a href="https://app.umbrellalive.com" class="btn btn-ghost" target="_blank">Get Started</a>
+                <a href="https://www.youtube.com/watch?v=kWuz0zKDvjM" class="btn btn-ghost" target="_blank">Watch the film</a>
+                <button class="btn btn-primary open-modal" data-modal="signup">Get Started</button>
             </div>
         </nav>
 
@@ -414,25 +544,11 @@
 
         <!-- Footer -->
         <footer>
-            <a href="#company" class="open-modal" data-modal="company">Company</a>
             <a href="#privacy" class="open-modal" data-modal="privacy">Privacy</a>
             <a href="#cookies" class="open-modal" data-modal="cookies">Cookies</a>
             <a href="#terms" class="open-modal" data-modal="terms">Terms</a>
             <a href="https://www.linkedin.com/company/umbrellalive/" target="_blank" rel="noopener">LinkedIn</a>
         </footer>
-    </div>
-
-    <!-- Modal Overlay for Company -->
-    <div class="modal-overlay" id="modal-company">
-        <button class="close-modal" onclick="closeModal('company')">&times;</button>
-        <div class="modal-content">
-            <div class="modal-icon">☂️</div>
-            <h2>Hi! We're The Umbrella Company.</h2>
-            <p>If you wanna join us in building products for a billion humans, reach out at <a href="https://calendly.com/jibran-umbrellalive/new-meeting" target="_blank">Calendly</a>!</p>
-            <p>Get access here:</p>
-            <div class="modal-button">Violet</div>
-            <p style="margin-top: 24px;">Feel free to reach out at <a href="https://calendly.com/jibran-umbrellalive/new-meeting" target="_blank">Calendly</a> or follow along our journey at <a href="https://www.linkedin.com/company/umbrellalive/" target="_blank">LinkedIn</a> ☂️</p>
-        </div>
     </div>
 
     <!-- Modal Overlay for Privacy -->
@@ -595,6 +711,50 @@
         </div>
     </div>
 
+    <!-- Modal Overlay for Signup -->
+    <div class="modal-overlay" id="modal-signup">
+        <button class="close-modal" onclick="closeModal('signup')">&times;</button>
+        <div class="modal-content">
+            <h2 class="modal-title-display">Get Started</h2>
+
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Name</label>
+                    <input type="text" id="signup-name" class="form-input" placeholder="Your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-role">Role</label>
+                    <select id="signup-role" class="form-select" required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="Artist">Artist</option>
+                        <option value="Host">Host</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="signup-other-group" style="display: none;">
+                    <label for="signup-other">Tell us what you do</label>
+                    <input type="text" id="signup-other" class="form-input" placeholder="Your role">
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-contact">Contact</label>
+                    <input type="text" id="signup-contact" class="form-input" placeholder="Email or phone number" required>
+                </div>
+
+                <div id="signup-error" class="form-error"></div>
+
+                <button type="submit" id="signup-submit" class="btn-submit">Submit</button>
+            </form>
+
+            <div id="signup-success" class="form-success" style="display: none;">
+                <p>You're in! Book a time to meet us:</p>
+                <a href="https://calendly.com/jibran-umbrellalive/new-meeting" target="_blank" class="btn-calendly">Book a Meeting</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Overlay for Waitlist -->
     <div class="modal-overlay" id="modal-waitlist">
         <button class="close-modal" onclick="closeModal('waitlist')">&times;</button>
@@ -698,6 +858,99 @@
         const waitlistError = document.getElementById('waitlist-error');
         const waitlistSuccess = document.getElementById('waitlist-success');
         const waitlistSubmit = document.getElementById('waitlist-submit');
+
+        // Signup form handling
+        const SIGNUP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyc7XDeK3rMskKXu-DrSQqGCaQGcUBBy9inG3gntTMp_wCLA_9IQj518GxOyBqPz5w3/exec';
+
+        const signupForm = document.getElementById('signup-form');
+        const signupName = document.getElementById('signup-name');
+        const signupRole = document.getElementById('signup-role');
+        const signupOtherGroup = document.getElementById('signup-other-group');
+        const signupOther = document.getElementById('signup-other');
+        const signupContact = document.getElementById('signup-contact');
+        const signupError = document.getElementById('signup-error');
+        const signupSuccess = document.getElementById('signup-success');
+        const signupSubmit = document.getElementById('signup-submit');
+
+        signupRole.addEventListener('change', () => {
+            if (signupRole.value === 'Other') {
+                signupOtherGroup.style.display = 'block';
+                signupOther.required = true;
+            } else {
+                signupOtherGroup.style.display = 'none';
+                signupOther.required = false;
+                signupOther.value = '';
+            }
+        });
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = signupName.value.trim();
+            const roleValue = signupRole.value;
+            const otherText = signupOther.value.trim();
+            const contact = signupContact.value.trim();
+
+            if (!name || !roleValue || !contact) {
+                signupError.textContent = 'Please fill in all required fields.';
+                signupError.style.display = 'block';
+                return;
+            }
+
+            if (roleValue === 'Other' && !otherText) {
+                signupError.textContent = 'Please tell us what you do.';
+                signupError.style.display = 'block';
+                return;
+            }
+
+            const role = roleValue === 'Other' ? otherText : roleValue;
+
+            signupSubmit.disabled = true;
+            signupSubmit.textContent = 'Submitting...';
+            signupError.style.display = 'none';
+
+            try {
+                const response = await fetch(SIGNUP_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        role: role,
+                        contact: contact
+                    })
+                });
+
+                let data = {};
+                try {
+                    data = await response.json();
+                } catch (err) {
+                    console.warn('Non-JSON response from server');
+                }
+
+                if (!response.ok || (data.status && data.status >= 400)) {
+                    throw new Error(data.message || 'Request failed: ' + response.status);
+                }
+
+                signupForm.style.display = 'none';
+                signupSuccess.style.display = 'block';
+
+            } catch (error) {
+                console.error('Signup error:', error);
+                if (error instanceof TypeError) {
+                    signupError.textContent = 'Could not connect. Please check your connection and try again.';
+                } else {
+                    signupError.textContent = 'Something went wrong. Please try again.';
+                }
+                signupError.style.display = 'block';
+            } finally {
+                signupSubmit.disabled = false;
+                signupSubmit.textContent = 'Submit';
+            }
+        });
 
         waitlistForm.addEventListener('submit', async (e) => {
             e.preventDefault();
