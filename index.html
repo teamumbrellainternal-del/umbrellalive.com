@@ -440,7 +440,7 @@
             margin-bottom: 24px;
         }
 
-        .btn-calendly {
+        .modal-content a.btn-calendly {
             display: inline-block;
             padding: 14px 32px;
             background: #FFFFFF;
@@ -453,9 +453,8 @@
             transition: all 0.2s ease;
         }
 
-        .btn-calendly:hover {
-            transform: translateY(-1px);
-            opacity: 0.9;
+        .modal-content a.btn-calendly:hover {
+            transform: scale(1.05);
             color: #000000;
             text-decoration: none;
         }
@@ -958,12 +957,11 @@
             waitlistSuccess.style.display = 'none';
 
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'cors',
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'text/plain;charset=utf-8',
-                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
                         email: email,
@@ -972,18 +970,7 @@
                     })
                 });
 
-                let data = {};
-                try {
-                    data = await response.json();
-                } catch (err) {
-                    console.warn('Non-JSON response from server');
-                }
-
-                if (!response.ok || (data.status && data.status >= 400)) {
-                    throw new Error(data.message || `Request failed: ${response.status}`);
-                }
-
-                // Show success
+                // Opaque response — if we got here without throwing, it worked
                 waitlistSuccess.style.display = 'block';
                 waitlistEmail.value = '';
 
@@ -995,11 +982,7 @@
 
             } catch (error) {
                 console.error('Submission error:', error);
-                if (error instanceof TypeError) {
-                    waitlistError.textContent = 'Could not connect. Please check your connection and try again.';
-                } else {
-                    waitlistError.textContent = 'Something went wrong. Please try again.';
-                }
+                waitlistError.textContent = 'Could not connect. Please check your connection and try again.';
                 waitlistError.style.display = 'block';
             } finally {
                 waitlistSubmit.disabled = false;
